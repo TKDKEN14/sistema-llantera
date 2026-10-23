@@ -1,0 +1,16 @@
+{
+  "name": "sistema-llantera",
+  "version": "1.0.0",
+  "description": "Inventario, ventas y contabilidad para llantera, con PostgreSQL",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "dotenv": "16.4.5",
+    "express": "4.21.2",
+    "pg": "8.13.1"
+  }
+}

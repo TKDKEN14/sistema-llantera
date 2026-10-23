@@ -1,0 +1,24 @@
+# Arranca PostgreSQL y el sistema juntos:  docker compose up -d
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: llantera
+      POSTGRES_USER: llantera
+      POSTGRES_PASSWORD: cambia-esta-clave
+    volumes:
+      - datos:/var/lib/postgresql/data
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://llantera:cambia-esta-clave@db:5432/llantera
+      PORT: 3000
+      APP_PASSWORD: ""
+    ports:
+      - "3000:3000"
+volumes:
+  datos:

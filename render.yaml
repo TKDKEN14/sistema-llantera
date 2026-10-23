@@ -1,0 +1,21 @@
+# Despliegue en Render (render.com): New + > Blueprint > elegir este repositorio.
+# Crea la página y la base PostgreSQL y las conecta solas.
+services:
+  - type: web
+    name: sistema-llantera
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node server.js
+    healthCheckPath: /api/salud
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: llantera-db
+          property: connectionString
+      - key: APP_PASSWORD
+        sync: false
+databases:
+  - name: llantera-db
+    plan: free
+    databaseName: llantera
