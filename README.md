@@ -4,6 +4,8 @@ Inventario de llantas, fricciones y repuestos con foto, registro de ventas que d
 
 Funciona en el navegador de la computadora y del celular. Si varios equipos usan el mismo servidor, todos ven el mismo inventario.
 
+[![Desplegar en Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/TKDKEN14/sistema-llantera)
+
 ## Qué hace
 
 - **Inventario**: cada producto lleva tipo (llanta, fricción, rin, tubo, aceite, batería u otro), numeración o código, marca, modelo, estado (nueva o usada, con % de vida), vehículo al que aplica, cantidad, costo, precio, ubicación y foto.
