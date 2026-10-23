@@ -27,6 +27,7 @@ const nid = () => crypto.randomUUID();
 // ---------- contraseña opcional (APP_PASSWORD en .env) ----------
 if (process.env.APP_PASSWORD) {
   app.use((req, res, next) => {
+    if (req.path === '/api/salud') return next(); // Render revisa esta ruta sin contraseña
     const [, b64] = (req.headers.authorization || '').split(' ');
     const pass = b64 ? Buffer.from(b64, 'base64').toString().split(':').slice(1).join(':') : '';
     const a = Buffer.from(pass), b = Buffer.from(process.env.APP_PASSWORD);
