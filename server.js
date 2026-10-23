@@ -294,11 +294,15 @@ app.use('/api', api);
 app.use('/api', (req, res) => res.status(404).json({ error: 'Ruta no encontrada' }));
 
 (async () => {
-  try {
-    await pool.query(fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8'));
-  } catch (e) {
-    console.error('No se pudo conectar o preparar la base de datos:', e.message);
-    process.exit(1);
+  // la base de datos puede tardar en aceptar conexiones justo después de crearse
+  const schema = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf8');
+  for (let intento = 1; ; intento++) {
+    try { await pool.query(schema); break; }
+    catch (e) {
+      console.error(`Base de datos no disponible (intento ${intento}/20): ${e.message}`);
+      if (intento >= 20) process.exit(1);
+      await new Promise(r => setTimeout(r, 5000));
+    }
   }
-  app.listen(PORT, () => console.log(`Sistema de la llantera listo en http://localhost:${PORT}`));
+  app.listen(PORT, '0.0.0.0', () => console.log(`Sistema de la llantera listo en el puerto ${PORT}`));
 })();
