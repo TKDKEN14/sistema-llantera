@@ -5,6 +5,7 @@ services:
     name: sistema-llantera
     runtime: node
     plan: free
+    autoDeploy: true
     buildCommand: npm ci --omit=dev
     startCommand: node server.js
     healthCheckPath: /api/salud
